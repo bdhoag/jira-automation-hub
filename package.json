@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@forge/events": "^2.1.2",
+    "@forge/sql": "^3.0.21",
+    "drizzle-orm": "^0.45.2"
+  }
+}

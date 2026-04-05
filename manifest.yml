@@ -1,0 +1,29 @@
+modules:
+  triggers:
+    - key: issue-created
+      function: issueCreatedHandler
+      events:
+        - avi:jira:created:issue
+
+  consumer:
+    - key: email-worker
+      queue: send-email
+      function: emailHandler
+
+  webtrigger:
+    - key: api
+      function: apiHandler
+
+  scheduledTrigger:
+    - key: cron-job
+      function: cronJobHandler
+      interval: hour
+
+  sql:
+    - key: main-db
+app:
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/235415c1-2ca5-4ae3-a586-fd2f5adb91eb
