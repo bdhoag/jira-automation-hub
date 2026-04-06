@@ -1,5 +1,5 @@
 modules:
-  triggers:
+  trigger:
     - key: issue-created
       function: issueCreatedHandler
       events:
@@ -16,11 +16,30 @@ modules:
 
   scheduledTrigger:
     - key: cron-job
-      function: cronJobHandler
+      function: cronHandler
       interval: hour
 
   sql:
     - key: main-db
+
+function:
+  - key: issueCreatedHandler
+    handler: src/trigger.issueCreated
+
+  - key: emailHandler
+    handler: src/consumer.emailWorker
+
+  - key: apiHandler
+    handler: src/api.webtrigger
+
+  - key: cronHandler
+    handler: src/cron.job
+
+permissions:
+  scopes:
+    - read:jira-work
+    - write:jira-work
+
 app:
   runtime:
     name: nodejs24.x
