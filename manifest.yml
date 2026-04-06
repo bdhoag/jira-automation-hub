@@ -7,12 +7,15 @@ modules:
 
   consumer:
     - key: email-worker
-      queue: send-email
+      queue: email-queue
       function: emailHandler
 
   webtrigger:
     - key: api
       function: apiHandler
+
+    - key: init-db
+      function: initDbHandler
 
   scheduledTrigger:
     - key: cron-job
@@ -21,20 +24,23 @@ modules:
 
   function:
     - key: issueCreatedHandler
-      handler: src/trigger.issueCreated
+      handler: index.issueCreated
 
     - key: emailHandler
-      handler: src/consumer.emailWorker
+      handler: index.emailWorker
 
     - key: apiHandler
-      handler: src/api.webtrigger
+      handler: index.syncApi
 
     - key: cronHandler
-      handler: src/cron.job
+      handler: index.retryJob
+
+    - key: initDbHandler
+      handler: index.initDb
 
   sql:
     - key: main-db
-      # engine: mysql
+      engine: mysql
 
 permissions:
   scopes:
