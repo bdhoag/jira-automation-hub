@@ -19,21 +19,22 @@ modules:
       function: cronHandler
       interval: hour
 
+  function:
+    - key: issueCreatedHandler
+      handler: src/trigger.issueCreated
+
+    - key: emailHandler
+      handler: src/consumer.emailWorker
+
+    - key: apiHandler
+      handler: src/api.webtrigger
+
+    - key: cronHandler
+      handler: src/cron.job
+
   sql:
     - key: main-db
-
-function:
-  - key: issueCreatedHandler
-    handler: src/trigger.issueCreated
-
-  - key: emailHandler
-    handler: src/consumer.emailWorker
-
-  - key: apiHandler
-    handler: src/api.webtrigger
-
-  - key: cronHandler
-    handler: src/cron.job
+      # engine: mysql
 
 permissions:
   scopes:
